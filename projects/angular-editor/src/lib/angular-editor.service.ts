@@ -48,6 +48,43 @@ export class AngularEditorService {
     }
   }
 
+    /**
+   * Create LateX eq
+   */
+    createLatex() {
+        const latexString= this.convertStringToLatex(this.selectedText)
+        const newString = '<div>' + latexString + '</div>';
+        this.insertHtml(newString);
+
+    }
+
+    convertStringToLatex(equation:string){
+    // Replace any occurrences of '^' with LaTeX format for exponentiation
+    equation = equation.replace(/\^/g, '^{}');
+
+    // Convert '*' to LaTeX format for multiplication
+    equation = equation.replace(/\*/g, '\\cdot ');
+
+    // Add LaTeX formatting for common functions
+    equation = equation.replace(/sqrt\((.*?)\)/g, '\\sqrt{$1}');
+    equation = equation.replace(/sin\((.*?)\)/g, '\\sin($1)');
+    equation = equation.replace(/cos\((.*?)\)/g, '\\cos($1)');
+    equation = equation.replace(/tan\((.*?)\)/g, '\\tan($1)');
+    // Add more functions as needed
+
+    // Add LaTeX formatting for brackets
+    equation = equation.replace(/\(/g, '{(');
+    equation = equation.replace(/\)/g, ')}');
+
+    // Convert '/' to LaTeX format for division
+    equation = equation.replace(/\//g, '\\frac{$1}{$2}');
+
+    // Surround the equation with \[ and \] to indicate it's a display equation
+    equation = '\\[' + equation + '\\]';
+
+    return equation;
+    }
+
   /**
    * insert color either font or background
    *

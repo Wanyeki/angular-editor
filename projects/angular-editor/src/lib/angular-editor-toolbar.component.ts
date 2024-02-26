@@ -272,6 +272,9 @@ export class AngularEditorToolbarComponent {
     }
   }
 
+  createLatex(){
+    this.editorService.createLatex()
+  }
   /**
    * insert Video link
    */
